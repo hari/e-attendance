@@ -1,5 +1,5 @@
-<?php
-require_once 'TableInterface.php';
+<?php namespace Attendance\Database;
+
 class UserTable implements TableInterface {
 
   public static function create() {

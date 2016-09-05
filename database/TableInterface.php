@@ -1,7 +1,8 @@
-<?php
+<?php namespace Attendance\Database;
+
 interface TableInterface {
 
 	static function create();
 	static function destroy();
-  
+
 }

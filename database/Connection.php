@@ -1,4 +1,5 @@
-<?php
+<?php namespace Attendance\Database;
+
 class Connection {
 
   private static $connection;
