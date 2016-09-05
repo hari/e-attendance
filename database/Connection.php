@@ -3,12 +3,12 @@ class Connection {
 
   private static $connection;
 
-  private __construct() {
+  private function __construct() {
 
   }
 
   public static function get() {
-
+    
   }
 
   public static function close() {
