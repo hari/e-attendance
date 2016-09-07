@@ -1,4 +1,5 @@
 <?php namespace Attendance;
+
 use Attendance\Core\Route;
 
 // collection of application routes as Route object
