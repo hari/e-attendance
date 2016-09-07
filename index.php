@@ -1,9 +1,8 @@
 <?php namespace Attendance;
-
+// start the session
 session_start();
 
 use Attendance\Core\Route;
-
 require_once 'autoload.php';
 require_once 'helpers.php';
 $routes = require_once 'routes.php';
@@ -14,8 +13,10 @@ $called = false;
 
 foreach ($routes as $route) {
   if ($current_route->is_callable($route)) {
-    $called = true;
+    //this is the route we need
+    //call the route's method
     echo $route->call();
+    $called = true;
     break;
   }
 }
