@@ -1,5 +1,7 @@
 <?php namespace Attendance;
 
+session_start();
+
 use Attendance\Core\Route;
 
 require_once 'autoload.php';
