@@ -2,12 +2,13 @@
 
 class Route {
 
-  private $_req, $_controller, $_method;
+  private $_req, $_controller, $_method, $_uri;
 
-  public function __construct($req, $controller, $method) {
+  public function __construct($req, $controller, $method, $uri) {
     $this->_req = $req;
     $this->_controller = $controller;
     $this->_method = $method;
+    $this->_uri = $uri;
   }
 
   public function call() {
@@ -30,7 +31,7 @@ class Route {
   public function  __is_equal($__value__) {
     return $other_route->_req == $this->_req &&
            $other_route->_method == $this->_method &&
-           $other_route->_controller == $this->_controller;
+           $other_route->_uri == $this->_uri;
   }
 
 }
