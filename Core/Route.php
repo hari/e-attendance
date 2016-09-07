@@ -23,15 +23,24 @@ class Route {
     }
     $object = new $class;
     if (!method_exists($object, $this->_method)) {
-      throw new \Exception("No Method declared { $method } in class { $class }", 1);
+      throw new \Exception("No Method declared { $this->_method } in class { $class }", 1);
     }
     return call_user_func_array([$object, $this->_method], []);
   }
 
+  /**
+   * Checks if the given route is callable by making sure the uri and request method are same
+   */
+  public function is_callable($other) {
+    return $this->_uri == $other->_uri && 
+           $this->_req == $other->_req;
+  }
+
   public function  __is_equal($__value__) {
-    return $other_route->_req == $this->_req &&
-           $other_route->_method == $this->_method &&
-           $other_route->_uri == $this->_uri;
+    return $__value__->_req == $this->_req &&
+           $__value__->_method == $this->_method &&
+           $__value__->_uri == $this->_uri &&
+           $__value__->_controller == $this->_controller;
   }
 
 }
