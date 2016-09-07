@@ -10,9 +10,9 @@ class View {
       if (count($args) >= 2) {
         extract($args[1]);
       }
-      $file (DIR_VIEW . '/' . $file . '.php');
+      $file  = DIR_VIEW . '/' . $file . '.php';
       if (!file_exists($file)) {
-
+        throw new \Exception("No view found '{$file}'");
       }
       @include_once $file;
       $data = ob_get_contents();
