@@ -3,6 +3,7 @@ $dirs = [
  'Controllers/',
  'Database/',
  'Models/',
+ 'Core/',
  'Utils/',
  'Utils/Validators/'
 ];
