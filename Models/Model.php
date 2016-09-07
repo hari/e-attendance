@@ -1,5 +1,7 @@
 <?php namespace Attendance\Models;
+
 abstract class Model {
+  
   /** @var Array The property-value pair of all the attributes of model */
   protected $instance = [];
 
