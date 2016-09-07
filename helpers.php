@@ -16,7 +16,7 @@ function asset($path) {
 }
 
 function get_current_uri() {
-  return str_replace('/attendance/', '' , $_SERVER['REQUEST_URI']);
+  return str_replace('/attendance/', '' , explode('?', $_SERVER['REQUEST_URI'])[0]);
 }
 
 function get_current_route() {
