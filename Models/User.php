@@ -9,5 +9,10 @@ class User extends Model {
   const TEACHER = 0x1;
   const STUDENT = 0x2;
   
-  protected $role;
+  public $role;
+
+  public static function isLoggedIn() {
+    return isset($_SESSION) && isset($_SESSION['user']);
+  }
+  
 }
