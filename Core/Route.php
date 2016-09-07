@@ -17,7 +17,7 @@ class Route {
       throw new \Exception("No File Exists { $file }", 2);
     }
     require_once $file;
-    $class = 'Attendance\Controllers\\' . $this->_controller;
+    $class = APP .  '\\' . DIR_CTRL . '\\' . $this->_controller;
     if (!class_exists($class)) {
       throw new \Exception("Class not found { $class }", 2);
     }
