@@ -6,5 +6,6 @@ use Attendance\Core\Route;
 // all the routes will be defined here
 return [
  //index page
- new Route('get', 'PageController', 'index', '')
+ new Route('get', 'PageController', 'index', ''),
+ new Route('post', 'PageController', 'login', 'user/login')
 ];
