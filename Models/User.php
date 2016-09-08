@@ -18,7 +18,7 @@ class User extends Model {
   }
 
   public static function create($pv = []) {
-    return parent::_create(new UserTable(), $pv);
+    return parent::_create(UserTable::getInstance(), $pv);
   }
 
   /**
@@ -31,7 +31,7 @@ class User extends Model {
    * @return boolean true if successfully deleted
    */
   public static function delete($wheres = []) {
-    return parent::_delete(new UserTable(), $wheres);
+    return parent::_delete(UserTable::getInstance(), $wheres);
   }
   
 }

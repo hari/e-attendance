@@ -8,7 +8,7 @@ use Attendance\Database\AttendanceTable;
 class Attendance extends Model {
 
   public static function create($pv = []) {
-    return parent::_create(new AttendanceTable(), $pv);
+    return parent::_create(AttendanceTable::getInstance(), $pv);
   }
 
   /**
@@ -21,7 +21,7 @@ class Attendance extends Model {
    * @return boolean true if successfully deleted
    */
   public static function delete($wheres = []) {
-    return parent::_delete(new AttendanceTable(), $wheres);
+    return parent::_delete(AttendanceTable::getInstance(), $wheres);
   }
 
 }
