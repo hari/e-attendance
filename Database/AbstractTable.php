@@ -34,6 +34,10 @@ abstract class AbstractTable {
                   str_repeat('?, ', count($pv) - 1) . '?');
   }
 
+  public function insert($pv = []) {
+    return $this->execute($this->createInsertStatement($pv), array_values($pv));
+  }
+
   public function getError() {
     return $this->error;
   }
