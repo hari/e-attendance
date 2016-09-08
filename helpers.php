@@ -3,16 +3,17 @@
 use Attendance\Core\Route;
 
 define('APP'     , 'Attendance');
-define('DIR_MODL', 'MODELS');
+define('DIR_MODL', 'Models');
 define('DIR_VIEW', 'Views');
 define('DIR_CTRL', 'Controllers');
+define('DIR_ASST', 'assets');
 define('DB_USER' , 'root');
 define('DB_PASS' , '');
 define('DB_HOST' , 'locahost');
 define('DB_NAME' , 'e_attendance');
 
 function asset($path) {
-  return "assets/$path";
+  return DIR_ASST . "/$path";
 }
 
 function get_current_uri() {
