@@ -1,8 +1,19 @@
 <?php namespace Attendance\Database;
 
-interface TableInterface {
+use Attendance\Database\Connection;
 
-	static function create();
-	static function destroy();
+abstract class TableInterface {
+
+	public static function create();
+
+	public static function destroy() {
+  }
+
+  protected static function execute($sql, $params) {
+    $con = Connection::get();
+    $pst = $con->prepare($sql);
+    $pst->bindParam($params);
+    return $pst->execute();
+  }
 
 }
