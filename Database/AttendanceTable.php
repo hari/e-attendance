@@ -7,7 +7,9 @@
  */
 class AttendanceTable extends AbstractTable {
 
-  public function __construct() {
+  protected static $instance;
+
+  private function __construct() {
     $this->table_name = 'attendance';
   }
 
@@ -21,6 +23,13 @@ class AttendanceTable extends AbstractTable {
            `remarks` text NOT NULL ,
            PRIMARY KEY (`id`))";
     return $this->execute($sql);
+  }
+
+  public static function getInstance() {
+    if (self::$instance == null) {
+      self::$instance = new self;
+    }
+    return self::$instance;
   }
 
 }
