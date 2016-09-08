@@ -22,8 +22,22 @@ abstract class Model {
    *
    * @return boolean true if successfully created
    */
-  public static function create($abs_table, $prop = []) {
+  protected static function _create($abs_table, $prop = []) {
     return $abs_table->insert($prop);
+  }
+
+  /**
+   * A wrapper to execute for creating a new Record using AbstractTable's Insert method
+   *
+   * @param $abs_table Attendance\Database\AbstractTable
+   * @param $wheres    array
+   * 
+   * @see Attendance\Database\AbstractTable
+   *
+   * @return boolean true if successfully deleted
+   */
+  protected static function _delete($abs_table, $wheres = []) {
+    return $abs_table->delete($wheres);
   }
   
 }
