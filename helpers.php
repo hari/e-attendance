@@ -9,7 +9,7 @@ define('DIR_CTRL', 'Controllers');
 define('DIR_ASST', 'assets');
 define('DB_USER' , 'root');
 define('DB_PASS' , '');
-define('DB_HOST' , 'locahost');
+define('DB_HOST' , 'localhost');
 define('DB_NAME' , 'e_attendance');
 
 function asset($path) {
