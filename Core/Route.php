@@ -12,11 +12,10 @@ class Route {
   }
 
   public function call() {
-    $file = 'Controllers/'. $this->_controller . ".php";
+    $file = DIR_CTRL . '/'. $this->_controller . ".php";
     if (!file_exists($file)) {
       throw new \Exception("No File Exists { $file }", 2);
     }
-    require_once $file;
     $class = APP .  '\\' . DIR_CTRL . '\\' . $this->_controller;
     if (!class_exists($class)) {
       throw new \Exception("Class not found { $class }", 2);
