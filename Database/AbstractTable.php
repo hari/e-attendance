@@ -28,6 +28,12 @@ abstract class AbstractTable {
     return true;
   }
 
+  public function createInsertStatement($pv = []) {
+    return sprintf('INSERT INTO %s (%s) VALUES (%s)', $this->getTableName(), 
+                  implode(',', array_keys($pv)),
+                  str_repeat('?, ', count($pv) - 1) . '?');
+  }
+
   public function getError() {
     return $this->error;
   }
