@@ -21,5 +21,9 @@ function get_current_uri() {
 }
 
 function get_current_route() {
-  return new Route(strtolower($_SERVER['REQUEST_METHOD']), '', '', get_current_uri());
+  return new Route(strtolower($_SERVER['REQUEST_METHOD']), get_current_uri(), '', '');
+}
+
+function dd($s) {
+  die(var_dump($s));
 }
