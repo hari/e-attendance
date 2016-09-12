@@ -4,7 +4,7 @@ class Route {
 
   private $_req, $_controller, $_method, $_uri;
 
-  public function __construct($req, $controller, $method, $uri) {
+  public function __construct($req, $uri, $method, $controller = '') {
     $this->_req = $req;
     $this->_controller = $controller;
     $this->_method = $method;
@@ -12,6 +12,9 @@ class Route {
   }
 
   public function call() {
+    if ($this->_method instanceof \Closure) {
+      return call_user_func_array($this->_method, func_get_args());
+    }
     $file = DIR_CTRL . '/'. $this->_controller . ".php";
     if (!file_exists($file)) {
       throw new \Exception("No File Exists { $file }", 2);
@@ -24,7 +27,7 @@ class Route {
     if (!method_exists($object, $this->_method)) {
       throw new \Exception("No Method declared { $this->_method } in class { $class }", 1);
     }
-    return call_user_func_array([$object, $this->_method], []);
+    return call_user_func_array([$object, $this->_method], func_get_args());
   }
 
   /**
