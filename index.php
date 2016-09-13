@@ -3,6 +3,7 @@
 session_start();
 
 use Attendance\Core\Route;
+use Attendance\Core\Request;
 require_once 'autoload.php';
 require_once 'helpers.php';
 $routes = require_once 'routes.php';
@@ -15,7 +16,7 @@ foreach ($routes as $route) {
   if ($current_route->is_callable($route)) {
     //this is the route we need
     //call the route's method
-    echo $route->call();
+    echo $route->call(Request::getInstance());
     $called = true;
     break;
   }
