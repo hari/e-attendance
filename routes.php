@@ -6,6 +6,11 @@ use Attendance\Core\Route;
 // all the routes will be defined here
 return [
  //index page
- new Route('get', '', 'index', 'PageController'),
- new Route('post', 'user/login', 'login', 'PageController')
+ Route::get('', 'index', 'PageController', 'home'),
+ Route::get('user/login', function() {
+  //redirect login page to home page
+  return redirect(route('home'));
+ }),
+ Route::post('user/login', 'login', 'PageController', 'login.do'),
+ Route::get('take', 'take', 'PageController', 'take')
 ];
