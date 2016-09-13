@@ -2,13 +2,14 @@
 
 class Route {
 
-  private $_req, $_controller, $_method, $_uri;
+  private $_req, $_controller, $_method, $_uri, $_name;
 
-  public function __construct($req, $uri, $method, $controller = '') {
+  public function __construct($req, $uri, $method, $controller = '', $name = '') {
     $this->_req = $req;
     $this->_controller = $controller;
     $this->_method = $method;
     $this->_uri = $uri;
+    $this->_name = $name;
   }
 
   public function call() {
@@ -42,7 +43,24 @@ class Route {
     return $__value__->_req == $this->_req &&
            $__value__->_method == $this->_method &&
            $__value__->_uri == $this->_uri &&
-           $__value__->_controller == $this->_controller;
+           $__value__->_controller == $this->_controller &&
+           $__value__->_name == $this->_name;
+  }
+
+  public function getName() {
+    return $this->_name;
+  }
+
+  public function getUri() {
+    return $this->_uri;
+  }
+
+  public static function post($uri, $method, $controller = '', $name = '') {
+    return new Route('post', $uri, $method, $controller, $name);
+  }
+
+  public static function get($uri, $method, $controller = '', $name = '') {
+    return new Route('get', $uri, $method, $controller, $name);
   }
 
 }
