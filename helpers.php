@@ -27,3 +27,20 @@ function get_current_route() {
 function dd($s) {
   die(var_dump($s));
 }
+
+function redirect($page) {
+  header("Location: $page");
+  exit;
+}
+
+function route($name) {
+  global $routes;
+  $final = array_filter($routes, function($route) use ($name) {
+    return $route->getName() == $name;
+  });
+  if (count($final) == 0) {
+    throw new \Exception("No route with name {$name}", 1);
+  }
+  //check if its the index page
+  return $final[array_keys($final)[0]]->getUri() != "" ? $final[array_keys($final)[0]]->getUri() : '/index.php';
+}
