@@ -6,9 +6,9 @@ abstract class AbstractTable {
 
   protected $table_name, $error;
 
-	public abstract function create();
+  public abstract function create();
 
-	public function destroy() {
+  public function destroy() {
     return $this->execute('DROP TABLE ' . $this->getTableName());
   }
 
@@ -76,7 +76,7 @@ abstract class AbstractTable {
     return $this->execute($this->createDeleteStatement($wheres),
            array_map(function($text) {
               //remove the relations
-              return preg_replace('/\s?<=\s?|\s?>=\s?|\s?=\s?/', '', $text);
+              return preg_replace('/\s?<=\s?|\s?>=\s?|\s?=\s?/', '', $text, 1);
             }, array_values($wheres)));
   }
 
