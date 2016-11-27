@@ -3,6 +3,7 @@
 use Attendance\Core\Route;
 
 define('APP'     , 'Attendance');
+define('APP_URI' , 'http://localhost/attendance');
 define('DIR_MODL', 'Models');
 define('DIR_VIEW', 'Views');
 define('DIR_CTRL', 'Controllers');
@@ -13,11 +14,11 @@ define('DB_HOST' , 'localhost');
 define('DB_NAME' , 'e_attendance');
 
 function asset($path) {
-  return DIR_ASST . "/$path";
+  return APP_URI . "/" . DIR_ASST . "/$path";
 }
 
 function get_current_uri() {
-  return str_replace(['index.php', '/attendance/'], '' , explode('?', $_SERVER['REQUEST_URI'])[0]);
+  return str_replace(['index.php', '/attendance/', '/Attendance/'], '' , explode('?', $_SERVER['REQUEST_URI'])[0]);
 }
 
 function get_current_route() {
@@ -29,6 +30,7 @@ function dd($s) {
 }
 
 function redirect($page) {
+  $page = APP_URI . $page;
   header("Location: $page");
   exit;
 }
@@ -42,5 +44,5 @@ function route($name) {
     throw new \Exception("No route with name {$name}", 1);
   }
   //check if its the index page
-  return $final[array_keys($final)[0]]->getUri() != "" ? $final[array_keys($final)[0]]->getUri() : '/index.php';
+  return APP_URI . "/" . ($final[array_keys($final)[0]]->getUri() != "" ? $final[array_keys($final)[0]]->getUri() : '/index.php');
 }

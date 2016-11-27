@@ -1,9 +1,10 @@
 <?php namespace Attendance;
 // start the session
-session_start();
-
 use Attendance\Core\Route;
 use Attendance\Core\Request;
+use Attendance\Models\User;
+session_start();
+
 require_once 'autoload.php';
 require_once 'helpers.php';
 $routes = require_once 'routes.php';
