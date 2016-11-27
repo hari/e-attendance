@@ -12,6 +12,10 @@ abstract class Model {
     return null;
   }
 
+  public static function _select($abs_table, $cols = [], $where) {
+    return $abs_table->select($cols, $where);
+  }
+
   /**
    * A wrapper to execute for creating a new Record using AbstractTable's Insert method
    *
