@@ -1,6 +1,7 @@
 <?php namespace Attendance\Models;
 
 use Attendance\Database\UserTable;
+use Attendance\Utils\Session;
 
 /**
  * 
@@ -14,11 +15,34 @@ class User extends Model {
   public $role;
 
   public static function isLoggedIn() {
-    return isset($_SESSION) && isset($_SESSION['user']);
+    return Session::has('user');
+  }
+
+  public static function logged() {
+    return Session::get('user');
   }
 
   public static function create($pv = []) {
     return parent::_create(UserTable::getInstance(), $pv);
+  }
+
+  public static function select($cols = [], $where) {
+    return parent::_select(UserTable::getInstance(), $cols, $where);
+  }
+
+  public static function login($username, $password) {
+    if (!preg_match("/^se\d{6}/", $username)) {
+      return false;
+    }
+    $where = sprintf("where reg_no = '%s' and password = '%s'", $username, md5($password));
+    $user = self::select(['role', 'full_name'], $where);
+    if ($user == null || empty($user)) {
+      return false;
+    }
+    $u = new User();
+    $u->instance = $user;
+    Session::put("user", $u);
+    return true;
   }
 
   /**
