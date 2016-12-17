@@ -2,10 +2,7 @@
 <body class="admin">
   <?php include_once DIR_VIEW.'./parts/nav.php' ;?>
   <div class="row">
-    <div class="col four">
-     <h3>Stats</h3>
-   </div>
-   <div class="col four">
+   <div class="col two">
     <h3>Manage Teacher</h3>
     <form class="block-form" action="<?php echo route('do.teacher'); ?>" method="POST">
       <fieldset>
@@ -25,23 +22,25 @@
   </div>
   <div class="col two">
     <h3>Teachers</h3>
-    <?php for($i = 0 ; $i < 3; $i++) : ?>
+    <?php if (isset($teachers) && count($teachers) > 0) : ?>
       <div class="container profiles">
-        <?php for($k = 0 ; $k < 3; $k++) : ?>
+        <?php foreach($teachers as $teacher) : ?>
          <div class="col three">
            <div class="teacher-profile">
              <img src="http://colorhunt.co/img/logo.gif" />
-             <p class="control tb">Rajendra Thapa</p>
-             <p class="control">Subjects: <strong>5</strong></p>
+             <p class="control tb" title="<?php echo $teacher['full_name']; ?>">
+               <?php echo $teacher['full_name']; ?>
+             </p>
+             <p class="control" style="font-size: 14px;"><?php echo $teacher['reg_no']; ?></p>
              <div class="control">
-               <a href="?do=edit&type=teacher&id=1">Edit</a>
-               <a class="tr" href="?do=delete&type=teacher&id=1">Delete</a>
+               <a href="?do=edit&id=<?php echo $teacher['reg_no']; ?>">Edit</a>
+               <a class="tr" href="?do=delete&id=<?php echo $teacher['reg_no']; ?>">Delete</a>
              </div>
            </div>
          </div>
-       <?php endfor;?>
+       <?php endforeach;?>
      </div>
-   <?php endfor;?>
+   <?php endif;?>
  </div>
 </div>
 </body>
