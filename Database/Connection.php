@@ -8,6 +8,15 @@ class Connection {
 
   }
 
+  public static function execute($sql) {
+    $con = self::get();
+    $stm = $con->prepare($sql);
+    if ($stm->execute()) {
+      return $stm->fetchAll();
+    }
+    return [];
+  }
+
   public static function get() {
     if (self::$connection == null) {
       $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
