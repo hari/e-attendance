@@ -11,6 +11,9 @@ class Attendance extends Model {
     return parent::_create(AttendanceTable::getInstance(), $pv);
   }
 
+  public static function select($pv = [], $where) {
+    return parent::_select(AttendanceTable::getInstance(), $pv, $where);
+  }
   /**
    * Deletes a matching row from the table
    *

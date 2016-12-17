@@ -2,6 +2,7 @@
 
 use Attendance\Database\UserTable;
 use Attendance\Utils\Session;
+use Attendance\Utils\MessageBox;
 
 /**
  * 
@@ -19,7 +20,12 @@ class User extends Model {
   }
 
   public static function logged() {
-    return Session::get('user');
+    $user = new User();
+    if (Session::get('user') != null) {
+      $prop = self::select(['*'], "where reg_no = '" . Session::get('user') . "'");
+      $user->instance = $prop[0];
+    };
+    return $user;
   }
 
   public static function create($pv = []) {
@@ -31,17 +37,13 @@ class User extends Model {
   }
 
   public static function login($username, $password) {
-    if (!preg_match("/^se\d{6}/", $username)) {
-      return false;
-    }
     $where = sprintf("where reg_no = '%s' and password = '%s'", $username, md5($password));
-    $user = self::select(['role', 'full_name'], $where);
+    $user = self::select(['reg_no'], $where);
     if ($user == null || empty($user)) {
+      MessageBox::set(['type' => 'failed', 'message' => 'Invalid username or password!']);
       return false;
     }
-    $u = new User();
-    $u->instance = $user;
-    Session::put("user", $u);
+    Session::put("user", $user[0]['reg_no']);
     return true;
   }
 
