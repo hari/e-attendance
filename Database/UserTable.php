@@ -17,6 +17,7 @@ class UserTable extends AbstractTable {
     $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
            `id` INT NOT NULL AUTO_INCREMENT ,
            `full_name` VARCHAR(50) NOT NULL ,
+           `password` VARCHAR(200) NOT NULL ,
            `batch` INT(4) NOT NULL ,
            `reg_no` VARCHAR(10) NOT NULL ,
            `created_by` INT NOT NULL ,

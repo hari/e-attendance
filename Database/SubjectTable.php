@@ -12,8 +12,9 @@ class SubjectTable extends AbstractTable {
     $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
            `id` INT NULL AUTO_INCREMENT ,
            `name` VARCHAR(255) NULL ,
-           `code` VARCHAR(10) NULL ,
-           `teacher` INT NULL ,
+           `code` VARCHAR(10) UNIQUE NOT NULL ,
+           `sem` INT NULL ,
+           `teacher` varchar(200) NULL ,
            `created_by` INT NULL ,
            `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
            PRIMARY KEY (`id`))";

@@ -18,7 +18,7 @@ class AttendanceTable extends AbstractTable {
            `id` INT NOT NULL AUTO_INCREMENT ,
            `reg_no` VARCHAR(10) NOT NULL ,
            `subject` VARCHAR(30) NOT NULL ,
-           `taken_by` INT NOT NULL ,
+           `taken_by` VARCHAR(50) NOT NULL ,
            `taken_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
            `remarks` text NOT NULL ,
            PRIMARY KEY (`id`))";
