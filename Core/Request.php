@@ -15,8 +15,10 @@ class Request {
     return self::$instance;
   }
 
-  public function get($key) {
+  public function get($key, $filter = true) {
     if (isset($_REQUEST) && isset($_REQUEST[$key])) {
+      if ($filter)
+        return \htmlentities($_REQUEST[$key], ENT_QUOTES);
       return $_REQUEST[$key];
     }
     return null;
