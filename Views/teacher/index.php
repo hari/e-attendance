@@ -1,14 +1,33 @@
 <?php include_once DIR_VIEW.'./parts/header.php' ;?>
 <body class="teacher">
+  <?php include_once DIR_VIEW.'./parts/nav.php' ;?>
   <div class="row">
    <h3 style="margin-bottom: 0">My Subjects</h3>
-   <select name="subject">
-    <option value="1">DSA</option>
-    <option value="2">PQT</option>
-    <option value="3">MFC</option>
-   </select>
-  </div>
-  <div style="height: 2px; background-color: #ddd"></div>
+   <select onchange="changeSubject(this);" name="subject" id="subject">
+     <?php $a = '';if (isset($subjects) && count($subjects) > 0) : 
+     foreach($subjects as $subject) :
+      if ($_GET['sub'] != null && $_GET['sub'] == $subject['code']) {
+        $a = 'selected';
+      } else {
+        $a = '';
+      }
+      ?>
+      <option <?php echo $a; ?> value="<?php echo $subject['code']; ?>">
+       <?php echo $subject['name']; ?>
+     </option>
+   <?php endforeach; else :?>
+   <option value="-1">No subject</option>
+ <?php endif; ?>
+</select>
+<script type="text/javascript">
+ function changeSubject(o) {
+  if (o.value != -1)
+    document.location.href = '<?php echo route("home"); ?>' + '?sub=' + o.value;
+}
+</script>
+</div>
+<div style="height: 2px; background-color: #ddd"></div>
+<?php if (count($students) == 0) echo '<h3 style="text-align: center">Already taken</h3>'; ?>
   <div class="row">
     <div class="col three">
       <h3>Leave <span id="pc">0/40</span></h3>
@@ -26,6 +45,11 @@
       </ul>
     </div>
   </div>
+  <div class="row">
+    <div class="col three">
+      <button class="btn btn-default" onclick="submit();">Submit</button>
+    </div>
+  </div>
   <script type="text/javascript">
   //count nodes
   var lc, pc, ac;
@@ -34,17 +58,20 @@
     lc = document.getElementById('lc');
     pc = document.getElementById('pc');
     ac = document.getElementById('ac');
-    for(var i = 0; i < 10; i++) {
-      students[i] = {name: '#' + i + " Student", reg: 'se2014' + i};
-    }
-    total = students.length;
-    render();
-  })();
+    <?php for($i = 0; $i < count($students); $i++) : ?>
+    students[<?php echo $i; ?>] = { 
+      name: "<?php echo $students[$i]['full_name']; ?>",
+      reg: "<?php echo $students[$i]['reg_no']; ?>"
+    };
+  <?php endfor; ?>
+  total = students.length;
+  render();
+})();
 
   /**
    * Changes student's attendance by moving from list
    */
-  function moveTo(e, fromList, toList) {
+   function moveTo(e, fromList, toList) {
     e = e || window.event;
     if (!e.target) return;
     var id = e.target.getAttribute('data-r');
@@ -64,14 +91,14 @@
   /**
    * loads student from database according to given subject
    */
-  function loadStudents(subject) {
+   function loadStudents(subject) {
     render();
   }
 
   /**
    * Displays the students
    */
-  function render() {
+   function render() {
     lc.textContent = present.length + '/' + total;
     pc.textContent = students.length + '/' + total;
     ac.textContent = absent.length + '/' + total;
@@ -174,6 +201,26 @@
       li.appendChild(btnPresent);
       root.appendChild(li);
     }
+  }
+
+  function submit() {
+    var form = document.createElement('form');
+    var ele = document.createElement('input');
+    var sub = document.createElement('input');
+    if (absent.length == 0) {
+      absent.push({name: 'empty', reg: 'marker'});
+    }
+    sub.name = "subject";
+    sub.value = document.getElementById('subject').value;
+    form.method = "POST";
+    form.action = "take";
+    ele.name = "list";
+    ele.value =  JSON.stringify(absent);
+    form.style.display = 'none';
+    form.appendChild(ele);
+    form.appendChild(sub);
+    document.body.appendChild(form);
+    form.submit();
   }
 </script>
 </body>

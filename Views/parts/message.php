@@ -1,7 +1,8 @@
 <?php
-$message = MessageBox::pullMessage();
+use Attendance\Utils\MessageBox;
+$message = MessageBox::pull();
 if (!empty($message)) :
-  $template = '<div class="message-box %s">%s</div>';
+  $template = '<div class="row message-box %s">%s</div>';
   $msg      = '<div class="message">%s</div>';
   $class = $message['type'];
   $col = '';

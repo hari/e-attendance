@@ -3,7 +3,7 @@
 use Attendance\Core\Route;
 
 define('APP'     , 'Attendance');
-define('APP_URI' , 'http://localhost/attendance');
+define('APP_URI' , 'http://192.168.10.12/attendance');
 define('DIR_MODL', 'Models');
 define('DIR_VIEW', 'Views');
 define('DIR_CTRL', 'Controllers');
@@ -30,7 +30,6 @@ function dd($s) {
 }
 
 function redirect($page) {
-  $page = APP_URI . $page;
   header("Location: $page");
   exit;
 }
@@ -44,5 +43,5 @@ function route($name) {
     throw new \Exception("No route with name {$name}", 1);
   }
   //check if its the index page
-  return APP_URI . "/" . ($final[array_keys($final)[0]]->getUri() != "" ? $final[array_keys($final)[0]]->getUri() : '/index.php');
+  return APP_URI . "/" . ($final[array_keys($final)[0]]->getUri() != "" ? $final[array_keys($final)[0]]->getUri() : 'index.php');
 }
