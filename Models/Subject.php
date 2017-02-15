@@ -1,4 +1,5 @@
 <?php namespace Attendance\Models;
+use Attendance\Database\Connection;
 
 use Attendance\Database\SubjectTable;
 
@@ -17,6 +18,10 @@ class Subject extends Model {
 
   public static function delete($wheres = []) {
     return parent::_delete(SubjectTable::getInstance(), $wheres);
+  }
+
+  public static function update($sql) {
+    return Connection::execute($sql);
   }
   
 }
