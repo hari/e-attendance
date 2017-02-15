@@ -1,26 +1,23 @@
-<?php include_once DIR_VIEW.'./parts/header.php' ;?>
+<?php include_once DIR_VIEW.'./parts/header.php' ;
+$action = route('do.subject');
+$name=""; $code=""; $sem=""; $tid = 0; $btn = "Add";
+if (isset($edit) && !empty($edit)) {
+  $name = $edit['name'];
+  $code = $edit['code'];
+  $sem = $edit['sem'];
+  $btn = "Update";
+  $tid = $edit['teacher'];
+  $action = route('update.subject');
+  $html = '<input type="hidden" name="id" value="' . $_GET['id'] . '" />';
+}
+?>
 <body class="admin">
   <?php include_once DIR_VIEW.'./parts/nav.php' ;?>
   <div class="row">
     <div class="col two">
       <h3>Manage Subject</h3>
-      <form class="block-form" action="<?php echo route('do.subject'); ?>" method="POST">
-        <?php
-        $name="";
-        $code="";
-        $sem="";
-        $tid = 0;
-        $btn = "Add";
-        if (isset($edit) && !empty($edit)) {
-          $name = $edit['name'];
-          $code = $edit['code'];
-          $sem = $edit['sem'];
-          $btn = "Update";
-          $tid = $edit['teacher'];
-          echo '<input type="hidden" name="update" value="1" />';
-          echo '<input type="hidden" name="id" value="' . $_GET['id'] . '" />';
-        }
-        ?>
+      <form class="block-form" action="<?php echo $action; ?>" method="POST">
+        <?php echo $html; ?>
         <fieldset>
           <label>Name</label>
           <input type="text" value="<?php echo $name; ?>" name="name" required="required" />

@@ -1,27 +1,23 @@
-<?php include_once DIR_VIEW.'./parts/header.php' ;?>
+<?php include_once DIR_VIEW.'./parts/header.php' ;
+$action = route('do.student');
+$name = ""; $reg = ""; $batch = ""; $sem = ""; $password = ""; $btn = "Add"; $html = '';
+if (isset($edit) && !empty($edit)) {
+  $name = $edit['full_name'];
+  $reg = $edit['reg_no'];
+  $batch = $edit['batch'];
+  $sem = $edit['semester'];
+  $btn = "Update";
+  $action = route('update.student');
+  $html = '<input type="hidden" name="id" value="' . $_GET['id'] . '" />';
+}
+?>
 <body class="admin">
   <?php include_once DIR_VIEW.'./parts/nav.php' ;?>
   <div class="row">
    <div class="col two">
     <h3>Manage Student</h3>
-    <form class="block-form" action="#" method="POST">
-      <?php
-      $name="";
-      $reg="";
-      $batch="";
-      $sem="";
-      $password="";
-      $btn = "Add";
-      if (isset($edit) && !empty($edit)) {
-        $name = $edit['full_name'];
-        $reg = $edit['reg_no'];
-        $batch = $edit['batch'];
-        $sem = $edit['semester'];
-        $btn = "Update";
-        echo '<input type="hidden" name="update" value="1" />';
-        echo '<input type="hidden" name="id" value="' . $_GET['id'] . '" />';
-      }
-      ?>
+    <form class="block-form" action="<?php echo $action; ?>" method="POST">
+      <?php echo $html; ?>
       <fieldset>
         <label>Name</label>
         <input type="text" value="<?php echo $name; ?>" name="name" />
