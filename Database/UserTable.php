@@ -17,7 +17,7 @@ class UserTable extends AbstractTable {
            `password` VARCHAR(200) NOT NULL ,
            `batch` INT(4) NOT NULL ,
            `semester` INT(1) NOT NULL ,
-           `reg_no` VARCHAR(10) NOT NULL ,
+           `reg_no` VARCHAR(10) NOT NULL UNIQUE ,
            `created_by` INT NOT NULL ,
            `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
            `role` INT NOT NULL ,
