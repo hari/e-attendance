@@ -36,23 +36,27 @@ class Route {
    */
   public function is_callable($other) {
     return $this->_uri == $other->_uri && 
-           $this->_req == $other->_req;
+    $this->_req == $other->_req;
   }
 
   public function  __is_equal($__value__) {
     return $__value__->_req == $this->_req &&
-           $__value__->_method == $this->_method &&
-           $__value__->_uri == $this->_uri &&
-           $__value__->_controller == $this->_controller &&
-           $__value__->_name == $this->_name;
+    $__value__->_method == $this->_method &&
+    $__value__->_uri == $this->_uri &&
+    $__value__->_controller == $this->_controller &&
+    $__value__->_name == $this->_name;
   }
 
   public function getName() {
     return $this->_name;
   }
 
-  public function getUri() {
-    return $this->_uri;
+  public function getUri($full_path = false) {
+    $prefix = "";
+    if ($full_path) {
+      $prefix = APP_URI . "/";
+    }
+    return $prefix.$this->_uri;
   }
 
   public static function post($uri, $method, $controller = '', $name = '') {
