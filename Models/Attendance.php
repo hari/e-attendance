@@ -11,6 +11,10 @@ class Attendance extends Model {
     return parent::_create(AttendanceTable::getInstance(), $pv);
   }
 
+  public static function countOf($sub) {
+    return count(self::select(["*"], "where subject = '" . $sub . "'"));
+  }
+
   public static function select($pv = [], $where) {
     return parent::_select(AttendanceTable::getInstance(), $pv, $where);
   }
