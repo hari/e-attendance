@@ -3,10 +3,8 @@
 use Attendance\Database\UserTable;
 use Attendance\Utils\Session;
 use Attendance\Utils\MessageBox;
+use Attendance\Database\Connection;
 
-/**
- * 
- */
 class User extends Model {
 
   const ADMIN   = 0x0;
@@ -17,6 +15,10 @@ class User extends Model {
 
   public static function isLoggedIn() {
     return Session::has('user');
+  }
+
+  public static function update($sql) {
+    return Connection::execute($sql);
   }
 
   public static function logged() {
