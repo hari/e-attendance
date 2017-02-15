@@ -1,11 +1,12 @@
 <?php include_once DIR_VIEW.'./parts/header.php' ;?>
 <body class="teacher">
-  <?php
-  include_once DIR_VIEW.'./parts/nav.php' ;
-  include_once DIR_VIEW.'./parts/subjects.php' ;
-  ?>
+  <?php include_once DIR_VIEW.'./parts/nav.php' ; ?>
+  <div class="row">
+    <h3 style="margin-bottom: 0">My Subjects</h3> 
+    <?php include_once DIR_VIEW.'./parts/subjects.php' ; ?>
+  </div>
 
-  <div style="height: 2px; background-color: #ddd"></div>
+  <div class="row" style="height: 2px; background-color: #ddd; margin: 8px auto"></div>
   <?php if (count($students) == 0) echo '<h3 style="text-align: center">Already taken</h3>'; ?>
     <div class="row">
       <div class="col three">
@@ -32,7 +33,7 @@
       </div>
       <script type="text/javascript">
     //count nodes
-    var lc, pc, ac;
+    var lc, pc, ac, action = '<?php echo route("attendance.take"); ?>';
     var students = [], absent = [], present = [], total = 0;
     (function(){
       lc = document.getElementById('lc');
