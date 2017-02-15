@@ -107,6 +107,9 @@ fieldset {
   .two {
     width: 48%;
   }
+  .two:last-child {
+    float: right;
+  }
   .four {
     width: 24%;
   }
@@ -210,9 +213,9 @@ a.flat {
 nav {
   box-sizing: border-box;
   display: block;
-  background-color: #ed5485;
+  background-color: #ab54ff;
   border: 4px;
-  border-bottom: 4px solid #d48;
+  border-bottom: 4px solid #84f;
   padding: 4px;
 }
 nav li a:hover {
@@ -282,21 +285,27 @@ nav li {
 .control a:hover {
   text-decoration: underline;
 }
-.two:last-child {
-  float: right;
-}
 .message-box {
   margin: 4px auto;
   background-color: rgba(200, 70, 70, .1);
   border-radius: 2px;
 }
 .done {
-  background-color: rgb(80, 190, 70);
+  background-color: rgb(80, 230, 70);
 }
 .failed {
-  background-color: rgb(190, 90, 70);
+  background-color: rgb(230, 180, 190);
 }
 .message {
-  color: rgba(50, 60, 50, .5);
+  color: rgba(50, 60, 50, .7);
   padding: 8px;
+}
+#chart {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 16px;
+}
+.student p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
