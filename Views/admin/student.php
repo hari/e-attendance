@@ -5,23 +5,44 @@
    <div class="col two">
     <h3>Manage Student</h3>
     <form class="block-form" action="#" method="POST">
+      <?php
+      $name="";
+      $reg="";
+      $batch="";
+      $sem="";
+      $password="";
+      $btn = "Add";
+      if (isset($edit) && !empty($edit)) {
+        $name = $edit['full_name'];
+        $reg = $edit['reg_no'];
+        $batch = $edit['batch'];
+        $sem = $edit['semester'];
+        $btn = "Update";
+        echo '<input type="hidden" name="update" value="1" />';
+        echo '<input type="hidden" name="id" value="' . $_GET['id'] . '" />';
+      }
+      ?>
       <fieldset>
         <label>Name</label>
-        <input type="text" name="name" />
+        <input type="text" value="<?php echo $name; ?>" name="name" />
       </fieldset>
       <fieldset>
         <label>Registration</label>
-        <input type="text" name="regno" />
+        <input type="text" value="<?php echo $reg; ?>" name="regno" />
       </fieldset>
       <fieldset>
         <label>Batch</label>
-        <input type="number" name="batch" />
+        <input type="number" value="<?php echo $batch; ?>" name="batch" />
+      </fieldset>
+      <fieldset>
+        <label>Semester</label>
+        <input type="number" value="<?php echo $sem; ?>" name="semester" />
       </fieldset>
       <fieldset>
         <label>Password</label>
         <input type="password" name="pass" />
       </fieldset>
-      <input type="submit" class="btn btn-default" value="Add" />
+      <input type="submit" class="btn btn-default" value="<?php echo $btn; ?>" />
     </form>
   </div>
   <div class="col two">

@@ -1,9 +1,6 @@
 <?php namespace Attendance\Database;
 
 /**
- * ---------------------------------------------------------------
- * | id | name | batch | reg_no | created_by | role | created_on |
- * ---------------------------------------------------------------
  */
 class UserTable extends AbstractTable {
 
@@ -19,6 +16,7 @@ class UserTable extends AbstractTable {
            `full_name` VARCHAR(50) NOT NULL ,
            `password` VARCHAR(200) NOT NULL ,
            `batch` INT(4) NOT NULL ,
+           `semester` INT(1) NOT NULL ,
            `reg_no` VARCHAR(10) NOT NULL ,
            `created_by` INT NOT NULL ,
            `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
