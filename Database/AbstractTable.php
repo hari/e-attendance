@@ -37,7 +37,7 @@ abstract class AbstractTable {
   protected function execute($sql, $params = []) {
     $con = Connection::get();
     $pst = $con->prepare($sql);
-    if (!$pst->execute($params)) {
+    if (!$pst->execute($params) || $pst->rowCount() == 0) {
       $this->setError($pst->errorInfo());
       return false;
     }
