@@ -10,6 +10,7 @@
    [route('page.teacher'), 'Teachers', $role == USER::ADMIN],
    [route('page.student'), 'Students', $role == USER::ADMIN],
    [route('page.subject'), 'Subjects', $role == USER::ADMIN],
+   [route('page.markmodel'), 'Marks Model', $role == USER::TEACHER],
    [route('page.mark'), 'Marks', $role == USER::TEACHER]
    ];
    ?>
