@@ -26,7 +26,7 @@ class Connection {
           $count++;
           self::$connection = new \PDO($dsn, DB_USER, DB_PASS);
           // self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-          // self::$connection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+          self::$connection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         } catch (Exception $e) {
           self::$connection = null;
         }
