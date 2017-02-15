@@ -1,47 +1,79 @@
-<?php include_once DIR_VIEW.'./parts/header.php' ;?>
+<?php include_once DIR_VIEW.'./parts/header.php';
+include DIR_VIEW .'./admin/parts/a.php' ;
+if (isset($_GET['ad'])) {
+  if (is_numeric($_GET['ad']))
+    $total = intval($_GET['ad']);
+  $file = fopen( DIR_VIEW .'./admin/parts/a.php', 'w+');
+  fwrite($file,'<?php $total = ' . $total . ';');
+  fclose($file);
+}
+?>
 <body class="admin">
   <?php include_once DIR_VIEW.'./parts/nav.php' ;?>
   <div class="row">
    <section class="col two">
      <h1>Chart</h1>
-     <canvas style="width: 100%; background-color: #fff" id="chart">
-     </canvas>
-     <?php
-      $subjects = ['DSA', 'CG', 'PQT', 'RWT', 'ASC'];
-      $data = [20, 30, 10, 15, 40];
-     ?>
-     <script type="text/javascript">
-       var c = document.getElementById("chart");
-       c.width = 500;
-       c.height = 250;
-       c.style.width = c.width + 'px';
-       c.style.height = c.height + 'px';
-       var ctx = c.getContext("2d");
-       ctx.font = "12px Changa";
-       ctx.strokeStyle = "blue";
-       ctx.moveTo(15, 210);
-       <?php for($i = 0; $i < count($subjects); $i++ ) : ?>
-       ctx.fillText("<?php echo $subjects[$i] ?>", 100 * <?php echo $i; ?> + 10, 240);
-       <?php 
-         if ($i > 0)
-          echo 'ctx.lineTo('.($i*100+20).','.(220-$data[$i]).'); ctx.stroke();';
-       endfor; ?>
-       ctx.fillStyle = "blue";
-       <?php for($i = 0; $i < count($subjects); $i++ ) : ?>
-       ctx.beginPath();
-       <?php 
-         $valX = $i * 100 + 20; if ($i == 0) $valX -= 5;
-         $valY = 220 - $data[$i]; if ($i == 0) $valY += 10;
-       ?>
-       ctx.arc(<?php echo $valX; ?>,<?php echo $valY; ?>, 4, 0, 2 * Math.PI, false);
-       ctx.closePath();
-       ctx.fill();
-       <?php endfor; ?>
-     </script>
-   </section>
-   <section class="col two">
-     <h1>Information</h1>
-   </section>
- </div>
+     Select Sem: &nbsp; <select name="sem" onchange="changeTo(this)">
+     <?php for($i = 1; $i <= 8; $i++) : ?>
+       <option <?php if ($sem == $i) echo "selected";?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+     <?php endfor; ?>
+   </select>
+   <?php
+   $subs = array_filter($subjects, function($item) 
+    use ($sem) {
+      return $item['sem'] == $sem;
+    });
+   $data = [];
+   $names = [];
+   foreach ($subs as $sub) {
+    $names[] = $sub['code'];
+    $data[] = $total - \Attendance\Models\Attendance::countOf($sub['code']);
+  }
+  ?>
+  <canvas id="chart"></canvas>
+  <script type="text/javascript">
+    (function(d) {
+      Chart.defaults.global.hover.mode = 'label';
+      Chart.defaults.global.tooltips.enabled = true;
+      var ctx = document.getElementById("chart");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: <?php echo json_encode($names); ?>,
+          datasets: [{
+            label: 'Attendance',
+            data: <?php echo json_encode($data); ?>,
+            borderWidth: 1,
+            borderColor: 'rgb(128,120,192)'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero:true
+              }
+            }]
+          }
+        }
+      });
+    })(document);
+  </script>
+</section>
+<section class="col two">
+ <h1>Academic days</h1>
+ <p>Change academic days</p>
+ <form class="">
+   <input type="text" value="<?php echo $total; ?>" name="ad" />
+   <input type="submit" value="Change" />
+ </form>
+ This semester has total of <strong><?php echo $total; ?></strong> academic days.
+</section>
+<script type="text/javascript">
+  function changeTo(e) {
+    document.location.href = '<?php echo route("home") . "?sem="; ?>' + e.value; 
+  }
+</script>
+</div>
 </body>
 </html>
