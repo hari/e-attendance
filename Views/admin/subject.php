@@ -5,17 +5,33 @@
     <div class="col two">
       <h3>Manage Subject</h3>
       <form class="block-form" action="<?php echo route('do.subject'); ?>" method="POST">
+        <?php
+        $name="";
+        $code="";
+        $sem="";
+        $tid = 0;
+        $btn = "Add";
+        if (isset($edit) && !empty($edit)) {
+          $name = $edit['name'];
+          $code = $edit['code'];
+          $sem = $edit['sem'];
+          $btn = "Update";
+          $tid = $edit['teacher'];
+          echo '<input type="hidden" name="update" value="1" />';
+          echo '<input type="hidden" name="id" value="' . $_GET['id'] . '" />';
+        }
+        ?>
         <fieldset>
           <label>Name</label>
-          <input type="text" name="name" required="required" />
+          <input type="text" value="<?php echo $name; ?>" name="name" required="required" />
         </fieldset>
         <fieldset>
           <label>Code</label>
-          <input type="text" name="code" required="required" />
+          <input type="text" value="<?php echo $code; ?>" name="code" required="required" />
         </fieldset>
         <fieldset>
           <label>Semester</label>
-          <input type="text" name="sem" required="required" />
+          <input type="text" value="<?php echo $sem; ?>" name="sem" required="required" />
         </fieldset>
         <fieldset>
           <label>Teacher</label>
@@ -23,13 +39,13 @@
             <?php if (isset($teachers) && count($teachers) > 0) : 
             foreach($teachers as $teacher) :
               ?>
-            <option value="<?php echo $teacher['reg_no']; ?>">
+            <option <?php if ($teacher['reg_no'] == $tid) echo "selected"; ?> value="<?php echo $teacher['reg_no']; ?>">
               <?php echo $teacher['full_name'] . " | " . $teacher['reg_no']; ?>
             </option>
           <?php endforeach;endif; ?>
         </select>
       </fieldset>
-      <input type="submit" class="btn btn-default" value="Add" />
+      <input type="submit" class="btn btn-default" value="<?php echo $btn; ?>" />
     </form>
   </div>
   <div class="col two">
