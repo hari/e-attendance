@@ -13,7 +13,7 @@ class TeacherController extends AdminController {
   public function create($request) {
     if (!$this->isAuthorized()) {
       header('HTTP/1.1 403 Forbidden');
-      return redirect(route('login'));
+      return redirect(route('login.do'));
     }
     if (User::create(['full_name' => $request->get('name'),
       'reg_no' => $request->get('user'),
@@ -30,7 +30,7 @@ class TeacherController extends AdminController {
   public function update($request) {
     if (!$this->isAuthorized()) {
       header('HTTP/1.1 403 Forbidden');
-      return redirect(route('login'));
+      return redirect(route('login.do'));
     }
     $sql = "Update users set full_name='%s', reg_no='%s' WHERE reg_no='%s'";
     if (User::update(sprintf($sql, $request->get('name'), $request->get('user'), $request->get('id'))) == null) {
@@ -44,7 +44,7 @@ class TeacherController extends AdminController {
   public function delete($request) {
     if (!$this->isAuthorized()) {
       header('HTTP/1.1 403 Forbidden');
-      return redirect(route('login'));
+      return redirect(route('login.do'));
     }
     if($request->get('id') != Session::get('user')){
       if (User::delete(['reg_no' => '= ' . $request->get('id') ] )) {

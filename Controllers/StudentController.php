@@ -13,7 +13,7 @@ class StudentController extends AdminController {
   public function create($request) {
     if (!$this->isAuthorized()) {
       header('HTTP/1.1 403 Forbidden');
-      return redirect(route('login'));
+      return redirect(route('login.do'));
     }
     if ($request->get('regno') == "" || strtolower(substr($request->get('regno'),0,2)) != 'se') {
       MessageBox::set(['failed' => 'Invalid registration number.']);
@@ -30,7 +30,7 @@ class StudentController extends AdminController {
   public function update($request) {
     if (!$this->isAuthorized()) {
       header('HTTP/1.1 403 Forbidden');
-      return redirect(route('login'));
+      return redirect(route('login.do'));
     }
     if ($request->get('regno') == "" || strtolower(substr($request->get('regno'),0,2)) != 'se') {
       MessageBox::set(['failed' => 'Invalid registration number.']);
@@ -48,7 +48,7 @@ class StudentController extends AdminController {
   public function delete($request) {
     if (!$this->isAuthorized()) {
       header('HTTP/1.1 403 Forbidden');
-      return redirect(route('login'));
+      return redirect(route('login.do'));
     }
     if($request->get('id') != Session::get('user')){
       if (User::delete(['reg_no' => '= ' . $request->get('id') ] )) {

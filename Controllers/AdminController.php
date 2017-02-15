@@ -6,6 +6,8 @@ use Attendance\Core\View;
 use Attendance\Database\AttendanceTable;
 use Attendance\Database\UserTable;
 use Attendance\Database\SubjectTable;
+use Attendance\Database\MarksTable;
+use Attendance\Database\MarkModelTable;
 use Attendance\Utils\Session;
 
 class AdminController extends BaseController {
@@ -64,10 +66,14 @@ class AdminController extends BaseController {
   }
 
   public function init() {
-    $tables = [AttendanceTable::getInstance(), UserTable::getInstance(), SubjectTable::getInstance()];
+    $tables = [AttendanceTable::getInstance(), UserTable::getInstance(), SubjectTable::getInstance()
+    , MarkModelTable::getInstance(), MarksTable::getInstance()
+    ];
     foreach ($tables as $table) {
       if ($table->create()) {
         echo "Created '" . $table->getTableName() . "' table.<br />";
+      } else {
+        var_dump($table->getError());
       }
     }
   }

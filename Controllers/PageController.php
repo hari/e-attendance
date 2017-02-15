@@ -3,6 +3,7 @@
 use Attendance\Models\User;
 use Attendance\Models\Subject;
 use Attendance\Models\Attendance;
+use Attendance\Models\MarksModel;
 use Attendance\Utils\MessageBox;
 use Attendance\Core\View;
 use Attendance\Utils\Session;
@@ -40,16 +41,18 @@ class PageController {
     $subjects = Subject::select(['*'], sprintf("WHERE sem = %d", $student[0]['semester']));
     $absent = 0;
     $real_classes = 0;
+    $fields = [];
     if (count($subjects) > 0) {
       $subject = $subjects[0]['code'];
       if ($request->get('sub') != null) {
-        $subject = $r->get('sub');
+        $subject = $request->get('sub');
       }
       $where = sprintf("WHERE subject = '%s' AND reg_no = '%s'", $subject, Session::get('user'));
       $absent = count(Attendance::select(['*'], $where));
       $real_classes = count(Attendance::select(['id'], sprintf("WHERE subject = '%s'", $subject)));
+      $fields = MarksModel::select(['*'], "WHERE subject = '".$subject."'");
     }
-    return View::make('student.index', compact('subjects','absent', 'real_classes'));
+    return View::make('student.index', compact('subjects','absent', 'real_classes', 'fields'));
   }
 
   private function teacherIndex($request) {
@@ -63,7 +66,7 @@ class PageController {
       return View::make('teacher.index', compact('user', 'subjects', 'students'));
     }
 
-    $subject = $this->getSubject($request, $subjects);
+    $subject = SubjectController::getSubject($request, $subjects);
     if (count($subject) == 0) {
       return View::make('teacher.index', compact('user', 'subjects', 'students'));
     }
@@ -77,21 +80,6 @@ class PageController {
     }
 
     return View::make('teacher.index', compact('user', 'subjects', 'students'));
-  }
-
-  /**
-   * Returns the subject. Filters the subject if there is request.
-   */
-  private function getSubject($request, $subjects) {
-    $subject = $subjects[0];
-    if ($request->get('sub') != null) {
-      $subject = array_filter($subjects, function($item)
-        use ($request) {
-          return strtolower($item['code']) == strtolower($request->get('sub'));
-        });
-      $subject = $subject[array_keys($subject)[0]];
-    }
-    return $subject;
   }
 
   public function login($in) {

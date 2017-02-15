@@ -3,12 +3,32 @@
 use Attendance\Models\User;
 use Attendance\Models\Subject;
 use Attendance\Models\Attendance;
+use Attendance\Models\MarksModel;
 use Attendance\Utils\MessageBox;
 use Attendance\Core\View;
 use Attendance\Utils\Session;
 use Attendance\Database\Connection;
 
-class SubjectController extends AdminController {
+class MarkController extends BaseController {
+
+  public function index($request) {
+    if (!$this->isAuthorized()) {
+      header('HTTP/1.1 403 Forbidden');
+      return redirect(route('login.do'));
+    }
+    $user = User::logged();
+    $where = sprintf("WHERE teacher = '%s'", $user->getAttribute('reg_no'));
+    $subjects = Subject::select(['*'], $where);
+    $sub = $subjects[0];
+    if ($request->get('sub') != null) {
+      $sub =  SubjectController::getSubject($request, $subjects);
+    }
+    $where = sprintf("WHERE semester = %d", $sub['sem']);
+    $students = User::select(['reg_no', 'full_name'], $where);
+    $where = sprintf("WHERE subject = '%s'", $sub['code']);
+    $fields = MarksModel::select(['*'], $where);
+    return View::make('teacher.mark', compact('subjects', 'students', 'fields'));
+  }
 
   public function create($request) {
     if (!$this->isAuthorized()) {
@@ -51,19 +71,8 @@ class SubjectController extends AdminController {
     }
     return redirect(route('page.subject'));
   }
-  /**
-   * Returns the subject. Filters the subject if there is request.
-   */
-  public static function getSubject($request, $subjects) {
-    $subject = $subjects[0];
-    if ($request->get('sub') != null) {
-      $subject = array_filter($subjects, function($item)
-        use ($request) {
-          return strtolower($item['code']) == strtolower($request->get('sub'));
-        });
-      $subject = $subject[array_keys($subject)[0]];
-    }
-    return $subject;
-  }
 
+  public function isAuthorized() {
+    return User::isLoggedIn() && ((int)User::logged()->getAttribute('role')) == User::TEACHER;
+  }
 }
