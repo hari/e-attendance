@@ -38,5 +38,4 @@
 
 </div>
 </div>
-</body>
-</html>
+<?php include_once DIR_VIEW.'./parts/footer.php' ;?>

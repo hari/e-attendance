@@ -8,27 +8,32 @@
 
   <div class="row" style="height: 2px; background-color: #ddd; margin: 8px auto"></div>
   <?php if (count($students) == 0) echo '<h3 style="text-align: center">Already taken</h3>'; ?>
-    <div class="row">
-      <div class="col three">
-        <h3>Leave <span id="pc">0/40</span></h3>
-        <ul id="student-list" class="list">
-        </ul>
-      </div>
-      <div class="col three">
-        <h3>Absent <span id="ac">0/40</span></h3>
-        <ul id="absent-list" class="list">
-        </ul>
-      </div>
-      <div class="col three">
-        <h3>Present <span id="lc">0/40</span></h3>
-        <ul id="present-list" class="list">
-        </ul>
-      </div>
-    </div>
     <?php if (count($students) != 0) : ?>
       <div class="row">
         <div class="col three">
-          <button class="btn btn-default" onclick="submit();">Submit</button>
+          <button style="margin-bottom: 16px;" class="btn btn-default" onclick="submit();">Submit</button>
+        </div>
+      </div>
+      <div class="row" id="attendance">
+        <div class="col three">
+          <h3>Leave <span id="pc">0/40</span></h3>
+          <ul id="student-list" class="list">
+          </ul>
+        </div>
+        <div class="col three">
+          <h3>Absent <span id="ac">0/40</span></h3>
+          <ul id="absent-list" class="list">
+          </ul>
+        </div>
+        <div class="col three">
+          <h3>Present <span id="lc">0/40</span></h3>
+          <ul id="present-list" class="list">
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col three">
+          <button style="margin-top: 16px;" class="btn btn-default" onclick="submit();">Submit</button>
         </div>
       </div>
       <script type="text/javascript">
@@ -50,6 +55,5 @@
   })();
 </script>
 <script type="text/javascript" src="<?php echo asset('js/attendance.js'); ?>"></script>
-<?php endif; ?>
-</body>
-</html>
+<?php endif;
+include_once DIR_VIEW.'./parts/footer.php' ;?>

@@ -56,3 +56,4 @@ $present = substr((($real_classes - $absent) / $real_classes ) * 5, 0, 4);
     document.location.href = "?sub=" + encodeURI(e.value);
   }
 </script>
+<?php include_once DIR_VIEW.'./parts/footer.php' ;?>
