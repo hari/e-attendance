@@ -79,5 +79,4 @@ if (isset($edit) && !empty($edit)) {
     document.location.href = '<?php echo route("page.subject") . "?sem="; ?>' + e.value; 
   }
 </script>
-</body>
-</html>
+<?php include_once DIR_VIEW.'./parts/footer.php' ;?>

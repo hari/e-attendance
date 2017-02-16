@@ -18,41 +18,46 @@ if (isset($edit) && !empty($edit)) {
       <?php echo $html; ?>
       <fieldset>
         <label>Name</label>
-        <input type="text" value="<?php echo $name; ?>" name="name" />
+        <input type="text" value="<?php echo $name; ?>" name="name" required />
       </fieldset>
       <fieldset>
         <label>Username</label>
-        <input type="text" value="<?php echo $username; ?>" name="user" />
+        <input type="text" value="<?php echo $username; ?>" name="user" required />
       </fieldset>
       <fieldset>
         <label>Password</label>
-        <input type="password" name="pass" />
+        <input type="password" name="pass" required />
       </fieldset>
       <input type="submit" class="btn btn-default" value="<?php echo $btn; ?>" />
     </form>
   </div>
   <div class="col two">
     <h3>Teachers</h3>
-    <?php if (isset($teachers) && count($teachers) > 0) : ?>
-      <div class="container profiles">
-        <?php foreach($teachers as $teacher) : ?>
-         <div class="col three">
-           <div class="teacher-profile">
-             <img src="http://colorhunt.co/img/logo.gif" />
-             <p class="control tb" title="<?php echo $teacher['full_name']; ?>">
-               <?php echo $teacher['full_name']; ?>
-             </p>
-             <p class="control" style="font-size: 14px;"><?php echo $teacher['reg_no']; ?></p>
-             <div class="control">
-               <a href="?do=edit&id=<?php echo $teacher['reg_no']; ?>">Edit</a>
-               <a class="tr" href="?do=delete&id=<?php echo $teacher['reg_no']; ?>">Delete</a>
-             </div>
-           </div>
-         </div>
-       <?php endforeach;?>
-     </div>
-   <?php endif;?>
- </div>
+    <?php
+    if (isset($teachers) && count($teachers) > 0) :
+      $count = count($teachers);
+    echo '<div class="container profiles">';
+    for($row = 0; $row < $count; $row ++):
+      $teacher = $teachers[$row];
+    ?>
+
+    <div class="col three">
+      <div class="teacher-profile">
+        <img src="<?php echo asset('img/logo.gif'); ?>" />
+        <p class="control tb" title="<?php echo $teacher['full_name'];?>"><?php echo $teacher['full_name'];?></p>
+        <p class="control" style="font-size: 14px;"><?php echo $teacher['reg_no']; ?></p>
+        <div class="control">
+          <a href="?do=edit&id=<?php echo $teacher['reg_no']; ?>">Edit</a>
+          <a class="tr" href="?do=delete&id=<?php echo $teacher['reg_no']; ?>">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <?php
+    if (($row + 1) % 3 == 0) echo '</div><div class="container profiles">';
+    endfor; endif;
+    ?>
+  </div>
 </div>
-</body>
-</html>
+</div>
+<?php include_once DIR_VIEW.'./parts/footer.php' ;?>

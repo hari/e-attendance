@@ -20,23 +20,23 @@ if (isset($edit) && !empty($edit)) {
       <?php echo $html; ?>
       <fieldset>
         <label>Name</label>
-        <input type="text" value="<?php echo $name; ?>" name="name" />
+        <input type="text" value="<?php echo $name; ?>" name="name" required />
       </fieldset>
       <fieldset>
         <label>Registration</label>
-        <input type="text" value="<?php echo $reg; ?>" name="regno" />
+        <input type="text" value="<?php echo $reg; ?>" name="regno" required />
       </fieldset>
       <fieldset>
         <label>Batch</label>
-        <input type="number" value="<?php echo $batch; ?>" name="batch" />
+        <input type="number" value="<?php echo $batch; ?>" name="batch" required />
       </fieldset>
       <fieldset>
         <label>Semester</label>
-        <input type="number" value="<?php echo $sem; ?>" name="semester" />
+        <input type="number" value="<?php echo $sem; ?>" name="semester" required />
       </fieldset>
       <fieldset>
         <label>Password</label>
-        <input type="password" name="pass" />
+        <input type="password" name="pass" required />
       </fieldset>
       <input type="submit" class="btn btn-default" value="<?php echo $btn; ?>" />
     </form>
@@ -78,5 +78,4 @@ if (isset($edit) && !empty($edit)) {
     document.location.href = '<?php echo route("page.student") . "?sem="; ?>' + e.value; 
   }
 </script>
-</body>
-</html>
+<?php include_once DIR_VIEW.'./parts/footer.php' ;?>
