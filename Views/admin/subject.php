@@ -1,6 +1,6 @@
 <?php include_once DIR_VIEW.'./parts/header.php' ;
 $action = route('do.subject');
-$name=""; $code=""; $sem=""; $tid = 0; $btn = "Add";
+$name=""; $code=""; $sem= 5; $tid = -1; $btn = "Add";
 if (isset($edit) && !empty($edit)) {
   $name = $edit['name'];
   $code = $edit['code'];
@@ -24,19 +24,17 @@ if (isset($edit) && !empty($edit)) {
         </fieldset>
         <fieldset>
           <label>Code</label>
-          <input type="text" value="<?php echo $code; ?>" name="code" required="required" />
+          <input placeholder="CMP 123" type="text" value="<?php echo $code; ?>" name="code" required="required" />
         </fieldset>
         <fieldset>
           <label>Semester</label>
-          <input type="text" value="<?php echo $sem; ?>" name="sem" required="required" />
+          <input type="number" min="1" max="5" value="<?php echo $sem; ?>" name="sem" required="required" />
         </fieldset>
         <fieldset>
           <label>Teacher</label>
           <select name="teacher" required="required">
-            <?php if (isset($teachers) && count($teachers) > 0) : 
-            foreach($teachers as $teacher) :
-              ?>
-            <option <?php if ($teacher['reg_no'] == $tid) echo "selected"; ?> value="<?php echo $teacher['reg_no']; ?>">
+            <?php if (isset($teachers) && count($teachers) > 0) :foreach($teachers as $teacher) : ?>
+            <option <?php if ($teacher['reg_no'] == $tid) echo "selected";?> value="<?php echo $teacher['reg_no'];?>">
               <?php echo $teacher['full_name'] . " | " . $teacher['reg_no']; ?>
             </option>
           <?php endforeach;endif; ?>

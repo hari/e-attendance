@@ -1,6 +1,6 @@
 <?php include_once DIR_VIEW.'./parts/header.php' ;
 $action = route('do.student');
-$name = ""; $reg = ""; $batch = ""; $sem = ""; $password = ""; $btn = "Add"; $html = '';
+$name = ""; $reg = ""; $batch = date('Y'); $sem = 1; $password = ""; $btn = "Add"; $html = '';
 if (isset($edit) && !empty($edit)) {
   $name = $edit['full_name'];
   $reg = $edit['reg_no'];
@@ -24,7 +24,7 @@ if (isset($edit) && !empty($edit)) {
       </fieldset>
       <fieldset>
         <label>Registration</label>
-        <input type="text" value="<?php echo $reg; ?>" name="regno" required />
+        <input placeholder="se201412" type="text" value="<?php echo $reg; ?>" name="regno" required />
       </fieldset>
       <fieldset>
         <label>Batch</label>
@@ -32,7 +32,7 @@ if (isset($edit) && !empty($edit)) {
       </fieldset>
       <fieldset>
         <label>Semester</label>
-        <input type="number" value="<?php echo $sem; ?>" name="semester" required />
+        <input type="number" min="1" max="8" value="<?php echo $sem; ?>" name="semester" required />
       </fieldset>
       <fieldset>
         <label>Password</label>

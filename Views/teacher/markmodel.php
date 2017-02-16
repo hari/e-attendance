@@ -18,7 +18,7 @@
             <?php endforeach; ?>
           </select>
           <label>WEIGHT</label>
-          <input type="number" name="weight" />
+          <input type="number" min="5" name="weight" />
           <button class="btn btn-default">Add</button>
         </form>
       </div>

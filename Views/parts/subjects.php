@@ -1,7 +1,8 @@
 
 <select onchange="changeSubject(this);" name="subject" id="subject">
- <?php $a = '';if (isset($subjects) && count($subjects) > 0) : 
- $inSub = $_GET['sub'] != null ? $_GET['sub'] : '';
+ <?php $a = ''; $inSub;
+ if (isset($subjects) && count($subjects) > 0) : 
+  $inSub = $_GET['sub'] != null ? $_GET['sub'] : $subjects[0]['code'];
  foreach($subjects as $subject) :
   $a = '';
 if ($inSub == $subject['code']) $a = 'selected';
