@@ -69,13 +69,21 @@ fieldset {
   border: 1px solid rgba(0, 0, 0, .1);
   padding: 4px 8px;
 }
+.inp {
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  padding: 6px 8px;
+}
 .btn {
   display: block;
   border-radius: 4px;
   color: #fff;
+  padding: 8px !important;
+  text-transform: uppercase;
 }
 .btn-default {
-  background-color: #519aaa;
+  width: 100%;
+  background-color: #519840;
 }
 .btn-error {
   background-color: #ED5153;
@@ -88,7 +96,7 @@ fieldset {
   margin-bottom: 4px;
 }
 #form-logo {
-  height: 75px;
+  height: 90px;
   display: block;
   margin: 16px auto;
   border-radius: 75px;
@@ -207,25 +215,23 @@ a.flat {
 }
 
 .row {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 nav {
   box-sizing: border-box;
   display: block;
   background-color: #ab54ff;
-  border: 4px;
-  border-bottom: 4px solid #84f;
-  padding: 4px;
+  border-bottom: 4px solid rgba(0,0,0,.2);
 }
 nav li a:hover {
   background-color: rgba(0,0,0,.2);
 }
 nav li.selected a {
-  border-bottom: 1px solid rgba(0,0,0,.2);;
+  background-color: rgba(0,0,0,.2);
 }
 nav li a {
-  padding: 2px 8px;
+  padding: 4px 12px;
   display: inline-block;
   text-decoration: none;
   transition: background-color .3s ease;
@@ -233,7 +239,6 @@ nav li a {
 }
 nav li {
   list-style: none;
-  padding: 2px;
   display: inline-block;
 }
 .pro-list {
@@ -308,4 +313,28 @@ nav li {
 .student p {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.report li > strong {
+ float: right;
+}
+.report {
+  
+}
+
+table {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #ddd;
+}
+th {
+  text-transform: uppercase;
+}
+
+#attendance .col ul {
+  max-height: 80px;
+  overflow-y: auto;
+}
+footer > .row {
+  background-color: #fff;
 }
