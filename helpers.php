@@ -18,7 +18,7 @@ function asset($path) {
 }
 
 function get_current_uri() {
-  return str_replace(['index.php', '/attendance/', '/Attendance/'], '' , explode('?', $_SERVER['REQUEST_URI'])[0]);
+  return str_replace(['index.php', '/attendance/', '/Attendance/'], '', explode('?', $_SERVER['REQUEST_URI'])[0]);
 }
 
 function get_current_route() {
@@ -43,5 +43,9 @@ function route($name) {
     throw new \Exception("No route with name {$name}", 1);
   }
   //check if its the index page
-  return APP_URI . "/" . ($final[array_keys($final)[0]]->getUri() != "" ? $final[array_keys($final)[0]]->getUri() : '');
+  return APP_URI . "/" . $final[array_keys($final)[0]]->getUri();
+}
+
+function short_code($full_name) {
+  return preg_replace('/[^A-Z]/', '', $full_name);
 }
