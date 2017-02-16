@@ -25,13 +25,14 @@ class PageController {
       return $this->studentIndex($request);
     }
 
-    $subjects = Subject::select(['code', 'sem'], "WHERE id > 0");
-    $sem = 4;
+    $subjects = Subject::select(['code', 'sem', 'name'], "WHERE id > 0");
+    $sem = 5;
 
     if ($request->get('sem') != null) {
       $sem = (int)$request->get('sem');
     }
-    return View::make('admin.index', compact('user', 'subjects', 'sem'));
+    $total_student = count(User::select(['id'], 'WHERE semester = '.$sem));
+    return View::make('admin.index', compact('user', 'subjects', 'sem', 'total_student'));
   }
 
   private function studentIndex($request) {
@@ -49,8 +50,8 @@ class PageController {
       }
       $where = sprintf("WHERE subject = '%s' AND reg_no = '%s'", $subject, Session::get('user'));
       $absent = count(Attendance::select(['*'], $where));
-      $real_classes = count(Attendance::select(['id'], sprintf("WHERE subject = '%s'", $subject)));
-      $fields = MarksModel::select(['*'], "WHERE subject = '".$subject."'");
+      $real_classes = count(Attendance::select(['distinct date(taken_on)'], sprintf("WHERE subject = '%s'", $subject)));
+      $fields = MarksModel::select(['*'], sprintf("WHERE subject = '%s'", $subject));
     }
     return View::make('student.index', compact('subjects','absent', 'real_classes', 'fields'));
   }
