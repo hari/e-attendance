@@ -18,7 +18,9 @@ if (isset($_GET['ad'])) {
        <option <?php if ($sem == $i) echo "selected";?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
      <?php endfor; ?>
    </select>
+    &nbsp; Total Students: <strong>
    <?php
+   echo $total_student . '</strong>';
    $subs = array_filter($subjects, function($item) 
     use ($sem) {
       return $item['sem'] == $sem;
@@ -26,8 +28,8 @@ if (isset($_GET['ad'])) {
    $data = [];
    $names = [];
    foreach ($subs as $sub) {
-    $names[] = $sub['code'];
-    $data[] = $total - \Attendance\Models\Attendance::countOf($sub['code']);
+    $names[] = short_code($sub['name']);
+    $data[] = $total_student - \Attendance\Models\Attendance::countOf($sub['code']);
   }
   ?>
   <canvas id="chart"></canvas>
@@ -75,5 +77,4 @@ if (isset($_GET['ad'])) {
   }
 </script>
 </div>
-</body>
-</html>
+<?php include_once DIR_VIEW.'./parts/footer.php' ;?>
