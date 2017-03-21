@@ -54,31 +54,36 @@ class Attendance extends Model
         $message .= 'With regards,';
         $message .= '  The backup system.';
         $message .= "\r\n---- Initialize backup Comma Separated Value --- \r\n";
-        $message .= self::getCSVData($subject);
+        $message .= self::getCSVData("where subject = '$subject'");
         $message .= "\r\n---- Complete backup Comma Separated Value --- \r\n";
         return mail($email, 'Daily attendance backup - ' . $subject, $message, $headers);
     }
 
     public static function backupToCSV()
     {
-        $file = DIR_ASST . '/backup.csv';
-        $outputFile = fopen($file, 'w+');
-        fwrite($outputFile, self::getCSVData(null));
-        fclose($outputFile);
-        exec('git add ' . $file);
-        exec('git commit -m "Update backup"');
-        exec('git pull');
-        exec('git push');
+        $row_id = 0;
+        //in order to prevent selecting large number
+        //of rows we need use the last row id
+        if (file_exists(BACK_UP)) {
+            //we will extract the last row id from our BackUp file.
+            $data = explode(PHP_EOL, \file_get_contents(BACK_UP));
+            //select last data line, eliminating first "
+            $data = substr($data[count($data) - 2], 1);
+            $row_id = intval(substr($data, 0, strpos($data, '"')));
+        }
+        $data = self::getCSVData('where id > ' . $row_id);
+        if (strlen($data) > 1) {
+            //if new rows have been added we will append them to backup file
+            //this backup file will be pushed to the GIT server later 
+            $outputFile = fopen(BACK_UP, 'a+');
+            fwrite($outputFile, $data);
+            fclose($outputFile);
+        }
     }
 
-    private static function getCSVData($subject)
+    private static function getCSVData($where)
     {
-        $attendance;
-        if ($subject != null) {
-            $attendance = self::select(['*'], "where subject = '$subject'");
-        } else {
-            $attendance = self::select(['*'], "where id > 0");
-        }
+        $attendance = self::select(['*'], $where);
         $csv = '';
         foreach ($attendance as $record) {
             foreach ($record as $value) {
