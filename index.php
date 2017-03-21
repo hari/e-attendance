@@ -1,8 +1,10 @@
 <?php namespace Attendance;
-// start the session
+
 use Attendance\Core\Route;
 use Attendance\Core\Request;
 use Attendance\Models\User;
+
+// start the session
 session_start();
 
 require_once 'autoload.php';
@@ -14,15 +16,15 @@ $current_route = get_current_route();
 $called = false;
 
 foreach ($routes as $route) {
-  if ($current_route->is_callable($route)) {
-    //this is the route we need
-    //call the route's method
-    echo $route->call(Request::getInstance());
-    $called = true;
-    break;
-  }
+    if ($current_route->is_callable($route)) {
+        //this is the route we need
+        //call the route's method
+        echo $route->call(Request::getInstance());
+        $called = true;
+        break;
+    }
 }
 
 if (!$called) {
-  throw new \Exception("Error Processing Request", 1); 
+    throw new \Exception("Error Processing Request", 1);
 }

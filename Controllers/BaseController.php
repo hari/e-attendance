@@ -3,6 +3,7 @@
 /**
  * Base class for all controllers.
  */
-class BaseController {
+class BaseController
+{
 
 }

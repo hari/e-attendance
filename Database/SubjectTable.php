@@ -1,15 +1,18 @@
 <?php namespace Attendance\Database;
 
-class SubjectTable extends AbstractTable {
+class SubjectTable extends AbstractTable
+{
 
-  protected static $instance;
+    protected static $instance;
 
-  private function __construct() {
-    $this->table_name = 'subjects';
-  }
+    private function __construct()
+    {
+        $this->table_name = 'subjects';
+    }
 
-  public function create() {
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
+    public function create()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
            `id` INT NULL AUTO_INCREMENT ,
            `name` VARCHAR(255) NULL ,
            `code` VARCHAR(10) UNIQUE NOT NULL ,
@@ -18,14 +21,14 @@ class SubjectTable extends AbstractTable {
            `created_by` INT NULL ,
            `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
            PRIMARY KEY (`id`))";
-    return $this->execute($sql);
-  }
-
-  public static function getInstance() {
-    if (self::$instance == null) {
-      self::$instance = new self;
+        return $this->execute($sql);
     }
-    return self::$instance;
-  }
 
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new self;
+        }
+        return self::$instance;
+    }
 }

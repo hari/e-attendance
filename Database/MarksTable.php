@@ -1,18 +1,22 @@
 <?php namespace Attendance\Database;
 
 use Attendance\Database\Connection;
+
 /**
  */
-class MarksTable extends AbstractTable {
+class MarksTable extends AbstractTable
+{
 
-  protected static $instance;
+    protected static $instance;
 
-  private function __construct() {
-    $this->table_name = 'marks';
-  }
+    private function __construct()
+    {
+        $this->table_name = 'marks';
+    }
 
-  public function create() {
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
+    public function create()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
            `id` INT NOT NULL AUTO_INCREMENT ,
            `mid` INT NOT NULL ,
            `mark` INT NOT NULL ,
@@ -20,14 +24,14 @@ class MarksTable extends AbstractTable {
            `created_by` INT NOT NULL ,
            `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
            PRIMARY KEY (`id`))";
-    return $this->execute($sql);
-  }
-
-  public static function getInstance() {
-    if (self::$instance == null) {
-      self::$instance = new self;
+        return $this->execute($sql);
     }
-    return self::$instance;
-  }
 
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new self;
+        }
+        return self::$instance;
+    }
 }

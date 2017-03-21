@@ -37,7 +37,7 @@ if (isset($_GET['ad'])) {
     (function(d) {
       Chart.defaults.global.hover.mode = 'label';
       Chart.defaults.global.tooltips.enabled = true;
-      var ctx = document.getElementById("chart");
+      var ctx = d.getElementById("chart");
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {

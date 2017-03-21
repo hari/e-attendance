@@ -8,13 +8,13 @@ return [
 Route::get('init', 'init', 'AdminController', 'db.init'),
  //index page
 Route::get('', 'index', 'PageController', 'home'),
-Route::get('user/login', function() {
+Route::get('user/login', function () {
   //redirect login page to home page
-  return redirect(route('home'));
+    return redirect(route('home'));
 }),
-Route::get('logout', function() {
-  session_destroy();
-  return redirect(route('home'));
+Route::get('logout', function () {
+    session_destroy();
+    return redirect(route('home'));
 }, null, 'logout'),
 Route::post('marks', 'create', 'MarkController', 'do.mark'),
 Route::post('marks-model', 'create', 'MarkModelController', 'create.model'),

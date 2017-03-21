@@ -1,47 +1,51 @@
 <?php namespace Attendance\Models;
 
-abstract class Model {
+abstract class Model
+{
   
   /** @var Array The property-value pair of all the attributes of model */
-  protected $instance = [];
+    protected $instance = [];
 
-  public function getAttribute($prop) {
-    if (array_key_exists($prop, $this->instance)) {
-      return $this->instance[$prop];
+    public function getAttribute($prop)
+    {
+        if (array_key_exists($prop, $this->instance)) {
+            return $this->instance[$prop];
+        }
+        return null;
     }
-    return null;
-  }
 
-  public static function _select($abs_table, $cols = [], $where) {
-    return $abs_table->select($cols, $where);
-  }
+    public static function _select($abs_table, $cols = [], $where)
+    {
+        return $abs_table->select($cols, $where);
+    }
 
   /**
    * A wrapper to execute for creating a new Record using AbstractTable's Insert method
    *
    * @param $abs_table Attendance\Database\AbstractTable
    * @param $prop      array The key-value pair representing a new record according to table structure
-   * 
+   *
    * @see Attendance\Database\AbstractTable
    *
    * @return boolean true if successfully created
    */
-  protected static function _create($abs_table, $prop = []) {
-    return $abs_table->insert($prop);
-  }
+    protected static function _create($abs_table, $prop = [])
+    {
+        return $abs_table->insert($prop);
+    }
 
   /**
    * A wrapper to execute for creating a new Record using AbstractTable's Insert method
    *
    * @param $abs_table Attendance\Database\AbstractTable
    * @param $wheres    array
-   * 
+   *
    * @see Attendance\Database\AbstractTable
    *
    * @return boolean true if successfully deleted
    */
-  protected static function _delete($abs_table, $wheres = []) {
-    return $abs_table->delete($wheres);
-  }
-  
+    protected static function _delete($abs_table, $wheres = [])
+    {
+        return $abs_table->delete($wheres);
+    }
 }

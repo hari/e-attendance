@@ -2,16 +2,19 @@
 
 /**
  */
-class UserTable extends AbstractTable {
+class UserTable extends AbstractTable
+{
 
-  protected static $instance;
+    protected static $instance;
 
-  private function __construct() {
-    $this->table_name = 'users';
-  }
+    private function __construct()
+    {
+        $this->table_name = 'users';
+    }
 
-  public function create() {
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
+    public function create()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `" . $this->getTableName() . "` (
            `id` INT NOT NULL AUTO_INCREMENT ,
            `full_name` VARCHAR(50) NOT NULL ,
            `password` VARCHAR(200) NOT NULL ,
@@ -22,14 +25,14 @@ class UserTable extends AbstractTable {
            `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
            `role` INT NOT NULL ,
            PRIMARY KEY (`id`))";
-    return $this->execute($sql);
-  }
-
-  public static function getInstance() {
-    if (self::$instance == null) {
-      self::$instance = new self;
+        return $this->execute($sql);
     }
-    return self::$instance;
-  }
 
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new self;
+        }
+        return self::$instance;
+    }
 }

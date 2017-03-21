@@ -1,9 +1,6 @@
 <?php namespace Attendance\Database;
 
 /**
- * ---------------------------------------------------------
- * | id | reg_no | taken_by | subject | taken_on | remarks |
- * ---------------------------------------------------------
  */
 class AttendanceTable extends AbstractTable {
 
