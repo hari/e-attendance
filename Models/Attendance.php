@@ -39,4 +39,48 @@ class Attendance extends Model
     {
         return parent::_delete(AttendanceTable::getInstance(), $wheres);
     }
+    
+    /**
+     * Sends the attendance in CSV format for backup.
+     */
+    public static function sendCSVMail($email, $subject)
+    {
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8\r\n";
+        $headers .= "From: noreply@gces.edu.np\r\n";
+        $headers .= 'X-Mailer: PHP/' . \phpversion();
+        $message = 'Here is the backup of the attendance system for your subject "' . $subject . '"';
+        $message .= 'Incase the system has lost the database please contact the administrator to import back this backup.';
+        $message .= 'With regards,';
+        $message .= '  The backup system.';
+        $message .= "\r\n---- Initialize backup Comma Separated Value --- \r\n";
+        $message .= self::getCSVData($subject);
+        $message .= "\r\n---- Complete backup Comma Separated Value --- \r\n";
+        return mail($email, 'Daily attendance backup - ' . $subject, $message, $headers);
+    }
+
+    public static function backupToCSV()
+    {
+        $outputFile = fopen(DIR_ASST . '/backup.csv');
+        fwrite($outputFile, self::getCSVData());
+        fclose($outputFile);
+    }
+
+    private static function getCSVData($subject)
+    {
+        $attendance;
+        if ($subject == null) {
+            $attendance = self::select(['*'], "where subject = '$subject'");
+        } else {
+            $attendance = self::select(['*'], "where id > 0");
+        }
+        $csv = '';
+        foreach ($attendance as $record) {
+            foreach ($record as $value) {
+                $csv .= '"' . $value . '",';
+            }
+            $csv = substr($csv, 0, strlen($csv) - 1) . PHP_EOL;
+        }
+        return $csv;
+    }
 }
