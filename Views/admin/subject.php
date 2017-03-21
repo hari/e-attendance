@@ -28,7 +28,7 @@ if (isset($edit) && !empty($edit)) {
         </fieldset>
         <fieldset>
           <label>Semester</label>
-          <input type="number" min="1" max="5" value="<?php echo $sem; ?>" name="sem" required="required" />
+          <input type="number" min="1" max="8" value="<?php echo $sem; ?>" name="sem" required="required" />
         </fieldset>
         <fieldset>
           <label>Teacher</label>
