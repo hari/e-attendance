@@ -1,11 +1,22 @@
-<?php include_once DIR_VIEW.'./parts/header.php' ;?>
+<?php use Attendance\Utils\Session; include_once DIR_VIEW.'./parts/header.php' ;?>
 <body class="teacher">
   <?php include_once DIR_VIEW.'./parts/nav.php' ; ?>
   <div class="row">
     <h3 style="margin-bottom: 0">My Subjects</h3> 
     <?php include_once DIR_VIEW.'./parts/subjects.php' ; ?>
   </div>
-
+  <?php if (Session::get('backup')) : ?>
+     <script type="text/javascript">
+       var img = document.createElement("img");
+       img.src = "<?php echo route('page.backup'); ?>"
+       
+       img.style.display = 'none';
+       document.body.appendChild(img);
+       img.onload = img.onerror = function() {
+         document.body.removeChild(img);
+       }
+     </script>
+  <?php Session::put('backup', false); endif; ?>
   <div class="row" style="height: 2px; background-color: #ddd; margin: 8px auto"></div>
   <?php if (count($students) == 0) : $absent = \Attendance\Models\Attendance::countOf($inSub); ?>
     <h3 style="text-align: center">Already taken</h3>
