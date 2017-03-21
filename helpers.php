@@ -47,5 +47,9 @@ function route($name) {
 }
 
 function short_code($full_name) {
+  if (strlen($full_name) <= 6) return $full_name;
+  if (strpos(trim($full_name), ' ') == 0) {
+    return substr($full_name, 0, 3);
+  }
   return preg_replace('/[^A-Z]/', '', $full_name);
 }
