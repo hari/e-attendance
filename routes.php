@@ -31,5 +31,9 @@ Route::get('marks-model', 'index', 'MarkModelController', 'page.markmodel'),
 Route::get('student', 'student', 'PageController', 'student.index'),
 Route::get('manage/teacher', 'manageTeacher', 'AdminController', 'page.teacher'),
 Route::get('manage/student', 'manageStudent', 'AdminController', 'page.student'),
-Route::get('manage/subject', 'manageSubject', 'AdminController', 'page.subject')
+Route::get('manage/subject', 'manageSubject', 'AdminController', 'page.subject'),
+//the route has .png extension because we will fake to the browser as image
+//even though the browser will understand that it is not image
+//we will be able to call this route by create an img element somewhere we need
+Route::get('backup.png', 'backup', 'PageController', 'page.backup')
 ];

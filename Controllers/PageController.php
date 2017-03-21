@@ -95,4 +95,14 @@ class PageController
         User::login($in->get('username'), $in->get('password'));
         return redirect(route('home'));
     }
+    
+    //this function will execute GIT commands to backup the file
+    public function backup() {
+        exec('git add ' . BACK_UP);
+        exec('git commit -m "Update backup"');
+        exec('git pull');
+        exec('git push');
+        header('Content-type: image/png');
+        return file_get_contents(DIR_ASST .'/img/logo.png');
+    }
 }
