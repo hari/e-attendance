@@ -4,7 +4,7 @@
      <p>GCES E-Attendance System</p>
    </div>
    <div class="col three">
-     <p>Supervised by: <strong>Er. Rajendra Thapa</strong></p>
+   
    </div>
    <div class="col three">
      <p>Developed by: <strong>2014</strong> batch</p>
