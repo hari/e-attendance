@@ -61,15 +61,20 @@ class Attendance extends Model
 
     public static function backupToCSV()
     {
-        $outputFile = fopen(DIR_ASST . '/backup.csv');
-        fwrite($outputFile, self::getCSVData());
+        $file = DIR_ASST . '/backup.csv';
+        $outputFile = fopen($file, 'w+');
+        fwrite($outputFile, self::getCSVData(null));
         fclose($outputFile);
+        exec('git add ' . $file);
+        exec('git commit -m "Update backup"');
+        exec('git pull');
+        exec('git push');
     }
 
     private static function getCSVData($subject)
     {
         $attendance;
-        if ($subject == null) {
+        if ($subject != null) {
             $attendance = self::select(['*'], "where subject = '$subject'");
         } else {
             $attendance = self::select(['*'], "where id > 0");
