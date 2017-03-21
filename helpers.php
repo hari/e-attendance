@@ -12,6 +12,7 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'e_attendance');
+define('BACK_UP', DIR_ASST . '/backup.csv');
 
 function asset($path)
 {
