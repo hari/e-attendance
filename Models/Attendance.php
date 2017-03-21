@@ -12,7 +12,8 @@ class Attendance extends Model {
   }
 
   public static function countOf($sub) {
-    $where = sprintf("WHERE subject = '%s' AND taken_on LIKE '%s'", $sub, date('Y-m-d') . '%');
+    if ($sub == '') return 0;
+    $where = sprintf("WHERE reg_no<>'marker' AND subject='%s' AND taken_on LIKE '%s'", $sub, date('Y-m-d') . '%');
     return count(self::select(["*"], $where));
   }
 
