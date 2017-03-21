@@ -36,6 +36,8 @@ class AttendanceController extends BaseController
     
         if ($count > 0) {
             MessageBox::set(['type' => 'done', 'message' => 'Attendance taken of subject ' . $subject]);
+            Session::put('backup', true);
+            Attendance::backupToCSV();
         }
         return redirect(route('home'));
     }
